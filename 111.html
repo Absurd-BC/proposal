@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>表白</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            font-family: "Comic Sans MS", "微软雅黑", sans-serif;
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+        .buttons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            min-width: 80px;
+        }
+        #yesBtn {
+            background-color: #ff99cc;
+            position: relative;
+            z-index: 1;
+            transform-origin: center;
+        }
+        #noBtn {
+            background-color: #66b3ff;
+            position: relative; /* 改为relative */
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            font-size: 24px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>可以成为我的恋人吗？</h1>
+    <div class="buttons">
+        <button id="yesBtn">可以</button>
+        <button id="noBtn">不要</button>
+    </div>
+    <div id="loveText" class="result">喜欢你 ❤️</div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttons = document.querySelector('.buttons');
+        const loveText = document.getElementById('loveText');
+        const title = document.querySelector('h1');
+        let noCount = 0;
+        const noBtnTexts = ['真的不要吗？', '再想想嘛～', '不要这样嘛', '考虑一下呗', '你确定吗？', 
+                           '别这样嘛', '再考虑考虑', '给个机会吧', '不要拒绝我', '求求你了'];
+
+        noBtn.addEventListener('click', () => {
+            noCount++;
+            noBtn.textContent = noBtnTexts[noCount % noBtnTexts.length];
+            yesBtn.style.transform = `scale(${1 + noCount * 0.8})`;
+            yesBtn.style.fontSize = `${16 + noCount * 2}px`;
+            noBtn.style.transform = `translateX(${noCount * 50}px)`; // 移除初始偏移
+            // 标题上移
+            title.style.transform = `translateY(-${noCount * 20}px)`;
+        });
+
+        yesBtn.addEventListener('click', () => {
+            buttons.style.display = 'none';
+            loveText.style.display = 'block';
+            title.style.transform = 'translateY(0)'; // 标题回到初始位置
+        });
+    </script>
+</body>
+</html>
